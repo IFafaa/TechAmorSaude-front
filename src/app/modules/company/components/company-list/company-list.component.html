@@ -20,7 +20,7 @@
         >
           <td>{{ company.company_name }}</td>
           <td>{{ company.fantasy_name }}</td>
-          <td>{{ company.cnpj }}</td>
+          <td>{{ company.cnpj | mask: '00.000.000/0000-00' }}</td>
           <td>{{ company.inauguration_date | date : "dd/MM/YYYY" }}</td>
           <td>{{ company.region.label }}</td>
           <td>

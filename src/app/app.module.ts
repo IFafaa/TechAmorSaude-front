@@ -10,6 +10,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { SpinnerInterceptor } from './core/interceptors/spinner.interceptor';
 import { CustomPaginationIntl } from './core/configs/custom.paginator.intl';
+import { NgxMaskModule } from 'ngx-mask';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +21,7 @@ import { CustomPaginationIntl } from './core/configs/custom.paginator.intl';
     BrowserAnimationsModule,
     FooterComponent,
     HttpClientModule,
+    NgxMaskModule.forRoot(),
     NgxSpinnerModule,
   ],
   providers: [
@@ -27,7 +30,6 @@ import { CustomPaginationIntl } from './core/configs/custom.paginator.intl';
       useClass: SpinnerInterceptor,
       multi: true,
     },
-    { provide: LOCALE_ID, useValue: 'pt-BR' },
     {
       provide: MatPaginatorIntl,
       useValue: new CustomPaginationIntl().getCustomPaginationIntl(),

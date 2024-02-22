@@ -61,7 +61,7 @@ export class RegisterComponent {
       error: (err) => {
         console.log(err);
 
-        this.toastrService.success(err);
+        this.toastrService.error(err);
       },
     });
   }

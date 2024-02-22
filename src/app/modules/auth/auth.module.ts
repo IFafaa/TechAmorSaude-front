@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    MatIconModule,
   ],
 })
 export class AuthModule {}

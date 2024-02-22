@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './core/components/footer/footer.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,6 +14,7 @@ import { FooterComponent } from './core/components/footer/footer.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     FooterComponent,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

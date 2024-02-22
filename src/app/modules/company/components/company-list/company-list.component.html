@@ -1,0 +1,93 @@
+<div class="mx-auto mt-2 p-3">
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Razão Social</th>
+          <th>Nome Fantasia</th>
+          <th>CNPJ</th>
+          <th>Data da Inauguração</th>
+          <th>Região</th>
+          <th>Especialidades Médicas</th>
+          <th>Ativa</th>
+          <th class="text-center">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let company of companies; let i = index"
+          [paginacao]="{ indice: i, pagina: pageIndex, limitePagina: 5 }"
+        >
+          <td>{{ company.company_name }}</td>
+          <td>{{ company.fantasy_name }}</td>
+          <td>{{ company.cnpj }}</td>
+          <td>{{ company.inauguration_date | date : "dd/MM/YYYY" }}</td>
+          <td>{{ company.region.label }}</td>
+          <td>
+            <p class="overflow-hidden text-ellipsis whitespace-nowrap">
+              <span
+                *ngFor="
+                  let specialty of company.medical_specialties;
+                  let last = last
+                "
+                >{{ specialty.label }} <span *ngIf="!last">-</span></span
+              >
+            </p>
+          </td>
+          <td>
+            <div class="w-full flex justify-center">
+              <span
+                class="material-symbols-outlined"
+                [ngClass]="{
+                  'text-green-500': company.active,
+                  'text-red-500': !company.active
+                }"
+              >
+                {{ company.active ? "check_circle" : "cancel" }}
+              </span>
+            </div>
+          </td>
+          <td>
+            <div class="flex gap-2 justify-center">
+              <default-button
+                icon="visibility"
+                type="secondary"
+                (clickEvent)="viewCompany(company.id)"
+              ></default-button>
+              <default-button
+                icon="edit"
+                type="primary"
+                (clickEvent)="editCompany(company.id)"
+              ></default-button>
+              <default-button
+                icon="delete"
+                type="cancel"
+                (clickEvent)="removeCompany(company.id)"
+              ></default-button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- <ng-container>
+      <div class="p-5 d-flex w-100 justify-content-center">
+        <span>Não foram encontrados registros</span>
+      </div>
+    </ng-container>
+    <ng-container>
+      <div class="p-5 d-flex w-100 justify-content-center">
+        <span
+          >Houve um problema ao realizar a consulta, tente novamente mais
+          tarde</span
+        >
+      </div>
+    </ng-container> -->
+  </div>
+  <mat-paginator
+    [length]="companies.length"
+    [pageSize]="5"
+    (page)="pageIndex = $event.pageIndex"
+    [hidePageSize]="true"
+  >
+  </mat-paginator>
+</div>

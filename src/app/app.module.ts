@@ -1,12 +1,15 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './core/components/footer/footer.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { SpinnerInterceptor } from './core/interceptors/spinner.interceptor';
+import { CustomPaginationIntl } from './core/configs/custom.paginator.intl';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +21,18 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     HttpClientModule,
     NgxSpinnerModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true,
+    },
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    {
+      provide: MatPaginatorIntl,
+      useValue: new CustomPaginationIntl().getCustomPaginationIntl(),
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

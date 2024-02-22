@@ -7,6 +7,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
+  {
+    path: 'company',
+    loadChildren: () =>
+      import('./modules/company/company.module').then((m) => m.CompanyModule),
+  },
   { path: '', redirectTo: '/auth', pathMatch: 'full' },
 ];
 

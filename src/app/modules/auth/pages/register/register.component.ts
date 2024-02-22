@@ -18,6 +18,8 @@ export class RegisterComponent {
     confirmPassword: ['', [Validators.required]],
   });
   sentForm = false;
+  hidePassword = false;
+  hideConfirmPassword = false;
 
   constructor(
     private readonly fb: FormBuilder,

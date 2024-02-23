@@ -43,9 +43,15 @@
                 placeholder="Digite sua senha"
                 formControlName="password"
               />
-              <mat-icon class="cursor-pointer" matSuffix (click)="hidePassword = !hidePassword">{{
-                hidePassword ? "visibility_off" : "visibility"
-              }}</mat-icon>
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hidePassword = !hidePassword"
+              >
+                <mat-icon>{{
+                  hidePassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
               <mat-error
                 *ngIf="form.controls.password.hasError('required') && sentForm"
                 >Por favor, digite a sua senha</mat-error

@@ -1,4 +1,4 @@
-export interface Company {
+export interface ICompany {
   id: number;
   company_name: string;
   fantasy_name: string;

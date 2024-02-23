@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'src/app/core/services/toastr.service';
 import { ILogin } from '../../models/login.interface';
+import { TokenService } from 'src/app/core/services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent {
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
     private readonly toastrService: ToastrService,
+    private readonly tokenService: TokenService,
     private readonly router: Router
   ) {}
 
@@ -32,7 +34,10 @@ export class LoginComponent {
     }
 
     this.authService.login(this.form.value as ILogin).subscribe({
-      next: (res) => {},
+      next: (res) => {
+        this.tokenService.setToken(res.data.access_token);
+        this.router.navigate([`/companies`]);
+      },
       error: (err) => {
         this.toastrService.error(err.error.message);
       },

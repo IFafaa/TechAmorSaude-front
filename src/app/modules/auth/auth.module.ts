@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './pages/register/register.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -22,7 +24,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, NotFoundComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -31,6 +33,7 @@ const routes: Routes = [
     MatInputModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatButtonModule
   ],
 })
 export class AuthModule {}

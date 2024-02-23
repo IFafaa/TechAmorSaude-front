@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../../services/company.service';
-import { Company } from '../../models/company.interface';
+import { ICompany } from '../../models/company.interface';
 
 @Component({
   selector: 'app-company-list',
@@ -8,7 +8,7 @@ import { Company } from '../../models/company.interface';
   styleUrls: ['./company-list.component.scss'],
 })
 export class CompanyListComponent implements OnInit {
-  companies: Company[] = [];
+  companies: ICompany[] = [];
   pageIndex = 0;
 
   constructor(private readonly companyService: CompanyService) {}

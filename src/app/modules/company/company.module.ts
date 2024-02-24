@@ -7,7 +7,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginacaoDirective } from 'src/app/shared/directives/pagination.directive';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgModule } from '@angular/core';
-import { CompanyFormComponent } from './pages/company-form/company-form.component';
+import { CompanyFormComponent } from './components/company-form/company-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -15,6 +15,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CompanyActionComponent } from './pages/company-action/company-action.component';
+import { DefaultBackComponent } from 'src/app/shared/layout/default-back/default-back.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const routes: Routes = [
   {
@@ -23,16 +26,22 @@ const routes: Routes = [
   },
   {
     path: ':type/:id',
-    component: CompanyFormComponent,
+    component: CompanyActionComponent,
   },
 ];
 
 @NgModule({
-  declarations: [CompanyComponent, CompanyListComponent, CompanyFormComponent],
+  declarations: [
+    CompanyComponent,
+    CompanyListComponent,
+    CompanyFormComponent,
+    CompanyActionComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     DefaultButtonComponent,
+    DefaultBackComponent,
     MatPaginatorModule,
     PaginacaoDirective,
     NgxMaskModule.forChild(),
@@ -42,7 +51,8 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule,
   ],
 })
 export class CompanyModule {}

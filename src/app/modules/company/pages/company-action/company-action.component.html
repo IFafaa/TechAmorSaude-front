@@ -1,0 +1,40 @@
+<div class="w-full max-w-5xl mx-auto px-3 py-5 min-h-[88vh]">
+  <default-back></default-back>
+  <div class="flex justify-between w-full">
+    <h2>
+      {{
+        crudType == ENUM_CRUD_TYPE.create
+          ? "Criar"
+          : crudType == ENUM_CRUD_TYPE.edit
+          ? "Editar"
+          : crudType == ENUM_CRUD_TYPE.view
+          ? "Visualizar"
+          : ""
+      }}
+      entidade
+    </h2>
+    <default-button
+      *ngIf="crudType == ENUM_CRUD_TYPE.edit"
+      value="Excluir"
+      icon="delete"
+      (clickEvent)="removeCompany()"
+      type="cancel"
+    ></default-button>
+    <default-button
+      *ngIf="crudType == ENUM_CRUD_TYPE.view"
+      value="Editar"
+      icon="edit"
+      (clickEvent)="goToEditCompany(company.id)"
+      type="primary"
+    ></default-button>
+  </div>
+  <app-company-form
+    *ngIf="
+      (company && crudType !== ENUM_CRUD_TYPE.create && crudType) ||
+      (!company && crudType === ENUM_CRUD_TYPE.create && crudType)
+    "
+    [company]="company"
+    [crudType]="crudType"
+    (sendFormCallback)="sendForm($event)"
+  ></app-company-form>
+</div>

@@ -6,8 +6,8 @@
           <th>Razão Social</th>
           <th>Região</th>
           <th>Especialidades Médicas</th>
-          <th class="text-center">Ativa</th>
-          <th class="text-center">Ações</th>
+          <th class="!text-center">Ativa</th>
+          <th class="!text-center">Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -54,11 +54,6 @@
                 icon="edit"
                 type="primary"
                 (clickEvent)="editCompany(company.id)"
-              ></default-button>
-              <default-button
-                icon="delete"
-                type="cancel"
-                (clickEvent)="removeCompany(company.id)"
               ></default-button>
             </div>
           </td>

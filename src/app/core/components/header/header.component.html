@@ -1,0 +1,28 @@
+<header
+  class="w-full p-4 bg-[var(--primary)] border-b shadow-sm bg-primary"
+  *ngIf="!routesToHidden.includes(url)"
+>
+  <div class="w-[90%] mx-auto max-w-[1024px] flex justify-end items-center">
+    <div>
+      <div *ngIf="hasLogged">
+        <button mat-button [matMenuTriggerFor]="menu">
+          <span class="material-symbols-outlined text-white"> account_circle </span>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="deleteUser()">
+            <div class="w-full flex justify-between items-center">
+              <span class="material-symbols-outlined"> manage_accounts </span>
+              <span>Excluir conta</span>
+            </div>
+          </button>
+          <button mat-menu-item (click)="logOut()">
+            <div class="w-full flex justify-between items-center">
+              <span class="material-symbols-outlined"> logout </span>
+              <span>Sair</span>
+            </div>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+  </div>
+</header>

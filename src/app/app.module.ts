@@ -14,6 +14,7 @@ import { NgxMaskModule } from 'ngx-mask';
 import { DefaultErrorModalComponent } from './shared/layout/default-error-modal/default-error-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { HeaderComponent } from './core/components/header/header.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +23,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     AppRoutingModule,
     BrowserAnimationsModule,
     FooterComponent,
+    HeaderComponent,
     HttpClientModule,
     NgxMaskModule.forRoot(),
     NgxSpinnerModule,

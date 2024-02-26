@@ -75,16 +75,22 @@
       </mat-form-field>
 
       <div *ngIf="isViewMode">
-        Especialidades
-        <p class="overflow-hidden text-ellipsis whitespace-nowrap">
-          <span
-            *ngFor="
-              let specialty of company.medical_specialties;
-              let last = last
-            "
-            >{{ specialty.label }} <span *ngIf="!last">- </span></span
-          >
-        </p>
+        <div class="mb-1">Especialidades</div>
+        <ng-container
+          *ngFor="let specialty of company.medical_specialties; let i = index"
+        >
+          <span *ngIf="[0, 1].includes(i)" class="text-md">{{
+            specialty.label
+          }}</span>
+          <br *ngIf="[0, 1].includes(i)" />
+        </ng-container>
+        <a
+        (click)="viewSpecialties()"
+          *ngIf="company.medical_specialties.length >= 2"
+          class="hover:underline hover:cursor-pointer"
+        >
+          Ver mais...</a
+        >
       </div>
     </div>
 

@@ -3,9 +3,8 @@
     [(ngModel)]="text"
     (input)="searchSubject$.next(text)"
     class="appearance-none rounded-full border-2 pl-10 py-3 border-gray-300 hover:border-gray-400 transition-colors w-full px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline"
-    id="username"
     type="text"
-    placeholder="Busque por item ou loja"
+    [placeholder]="placeholder"
   />
   <div
     class="absolute right-0 inset-y-0 flex items-center hover:cursor-pointer"

@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyService } from '../../services/company.service';
 import { ConfirmDialogService } from '../../../../core/services/confirm-dialog.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorService } from 'src/app/core/services/error.service';
 
 @Component({
   selector: 'app-company-action',
@@ -22,7 +23,8 @@ export class CompanyActionComponent implements OnInit {
     private readonly router: Router,
     private readonly companyService: CompanyService,
     private readonly confirmDialogService: ConfirmDialogService,
-    private readonly _snackBar: MatSnackBar
+    private readonly _snackBar: MatSnackBar,
+    private readonly errorService: ErrorService
   ) {
     this.getParams();
   }
@@ -68,7 +70,7 @@ export class CompanyActionComponent implements OnInit {
       this.createCompany(company);
     }
     if (this.crudType === this.ENUM_CRUD_TYPE.edit) {
-      this.editCompany(company as ICompany);
+      this.editCompany(company);
     }
   }
 
@@ -79,6 +81,13 @@ export class CompanyActionComponent implements OnInit {
         this.resetParams();
         this.router.navigate([`company/${ENUM_CRUD_TYPE.view}/${res.data.id}`]);
       },
+      error: (err) => {
+        this.errorService.open(
+          'Erro ao criar/salvar uma entidade',
+          err.status,
+          err
+        );
+      },
     });
   }
 
@@ -88,6 +97,13 @@ export class CompanyActionComponent implements OnInit {
         this._snackBar.open('Entidade editada com sucesso!', 'Fechar');
         this.resetParams();
         this.router.navigate([`company/${ENUM_CRUD_TYPE.view}/${res.data.id}`]);
+      },
+      error: (err) => {
+        this.errorService.open(
+          'Erro ao editar/salvar uma entidade',
+          err.status,
+          err
+        );
       },
     });
   }
@@ -105,6 +121,13 @@ export class CompanyActionComponent implements OnInit {
         this.companyService.removeCompany(this.company.id).subscribe({
           next: (res) => {
             this.router.navigate(['/company']);
+          },
+          error: (err) => {
+            this.errorService.open(
+              'Erro ao remover/excluir uma entidade',
+              err.status,
+              err
+            );
           },
         });
       }

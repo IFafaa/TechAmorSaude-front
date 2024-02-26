@@ -1,3 +1,12 @@
+<div class="mx-auto">
+  <div class="pt-4 px-3">
+    <default-search-input
+      (searchEvent)="getCompanies($event)"
+      placeholder="Pesquise pelo nome da entidade"
+    ></default-search-input>
+  </div>
+</div>
+
 <div class="mx-auto mt-2 p-3">
   <div class="table-container">
     <table>
@@ -10,7 +19,7 @@
           <th class="!text-center">Ações</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody *ngIf="companiesListStatus === ENUM_LIST_STATUS.IDLE">
         <tr
           *ngFor="let company of companies; let i = index"
           [paginacao]="{ indice: i, pagina: pageIndex, limitePagina: 5 }"
@@ -60,19 +69,19 @@
         </tr>
       </tbody>
     </table>
-    <!-- <ng-container>
-      <div class="p-5 d-flex w-100 justify-content-center">
+    <ng-container *ngIf="companiesListStatus === ENUM_LIST_STATUS.NOT_FOUND">
+      <div class="p-5 flex w-full justify-center">
         <span>Não foram encontrados registros</span>
       </div>
     </ng-container>
-    <ng-container>
-      <div class="p-5 d-flex w-100 justify-content-center">
+    <ng-container *ngIf="companiesListStatus === ENUM_LIST_STATUS.ERROR">
+      <div class="p-5 flex w-full justify-center">
         <span
           >Houve um problema ao realizar a consulta, tente novamente mais
           tarde</span
         >
       </div>
-    </ng-container> -->
+    </ng-container>
   </div>
   <mat-paginator
     [length]="companies.length"

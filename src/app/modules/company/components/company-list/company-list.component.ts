@@ -1,3 +1,4 @@
+import { ENUM_LIST_STATUS } from './../../../../core/enums/list-status.enum';
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../../services/company.service';
 import { ICompany } from '../../models/company.interface';
@@ -11,6 +12,8 @@ import { ENUM_CRUD_TYPE } from 'src/app/core/enums/crud-type.enum';
 })
 export class CompanyListComponent implements OnInit {
   companies: ICompany[] = [];
+  ENUM_LIST_STATUS = ENUM_LIST_STATUS;
+  companiesListStatus: ENUM_LIST_STATUS = ENUM_LIST_STATUS.NOT_FOUND;
   pageIndex = 0;
 
   constructor(
@@ -19,10 +22,23 @@ export class CompanyListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.companyService.getCompanies().subscribe((res) => {
-      this.companies = res as any;
+    this.getCompanies();
+  }
+
+  getCompanies(filter?: string) {
+    this.companyService.getCompanies().subscribe({
+      next: (res) => {
+        this.companiesListStatus = ENUM_LIST_STATUS.IDLE;
+        this.companies = res;
+        if (!this.companies.length)
+          this.companiesListStatus = ENUM_LIST_STATUS.NOT_FOUND;
+      },
+      error: (err) => {
+        this.companiesListStatus = ENUM_LIST_STATUS.ERROR;
+      },
     });
   }
+
   viewCompany(company_id: number) {
     this.router.navigate([`company/${ENUM_CRUD_TYPE.view}/${company_id}`]);
   }

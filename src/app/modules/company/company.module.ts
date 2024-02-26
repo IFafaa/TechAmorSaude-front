@@ -18,6 +18,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CompanyActionComponent } from './pages/company-action/company-action.component';
 import { DefaultBackComponent } from 'src/app/shared/layout/default-back/default-back.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DefaultSearchInputComponent } from '../../shared/layout/default-search-input/default-search-input.component';
+import { CompanyListSpecialtyComponent } from './components/company-list-specialty/company-list-specialty.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Routes = [
   {
@@ -36,6 +39,7 @@ const routes: Routes = [
     CompanyListComponent,
     CompanyFormComponent,
     CompanyActionComponent,
+    CompanyListSpecialtyComponent,
   ],
   imports: [
     CommonModule,
@@ -53,6 +57,8 @@ const routes: Routes = [
     MatCheckboxModule,
     ReactiveFormsModule,
     MatSnackBarModule,
+    DefaultSearchInputComponent,
+
   ],
 })
 export class CompanyModule {}

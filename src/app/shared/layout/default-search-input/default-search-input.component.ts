@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Subject, debounceTime } from 'rxjs';
 
@@ -11,6 +11,7 @@ import { Subject, debounceTime } from 'rxjs';
   imports: [CommonModule, FormsModule]
 })
 export class DefaultSearchInputComponent implements OnInit {
+  @Input() placeholder: string = ''
   @Output() searchEvent = new EventEmitter<string>();
   searchSubject$ = new Subject();
   text = '';

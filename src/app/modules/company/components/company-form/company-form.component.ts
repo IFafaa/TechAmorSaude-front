@@ -1,6 +1,5 @@
-import { Location } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ENUM_CRUD_TYPE } from 'src/app/core/enums/crud-type.enum';
 import { IMedicalSpecialty } from '../../models/medical-specialty.interface';
 import { MedicalSpecialtyService } from '../../services/medical-specialty.service';
@@ -8,15 +7,15 @@ import { IRegion } from '../../models/region.interface';
 import { RegionService } from '../../services/region.service';
 import {
   FormBuilder,
-  FormControl,
-  FormGroup,
   Validators,
 } from '@angular/forms';
 import { cpfCnpjValidator } from 'src/app/core/validators/cpf-cnpj.validator';
 import { minDateValidator } from 'src/app/core/validators/min-date.validator';
 import { ICompany } from '../../models/company.interface';
-import { CompanyService } from '../../services/company.service';
 import { CompanyForm } from './company.form';
+import { MatDialog } from '@angular/material/dialog';
+import { CompanyListSpecialtyComponent } from '../company-list-specialty/company-list-specialty.component';
+import { ErrorService } from 'src/app/core/services/error.service';
 
 @Component({
   selector: 'app-company-form',
@@ -46,7 +45,7 @@ export class CompanyFormComponent implements OnInit {
     private readonly router: Router,
     private readonly medicalSpecialtyService: MedicalSpecialtyService,
     private readonly regionService: RegionService,
-    private readonly companyService: CompanyService
+    private readonly matDialog: MatDialog,
   ) {}
 
   ngOnInit(): void {
@@ -82,7 +81,7 @@ export class CompanyFormComponent implements OnInit {
         !this.isViewMode ? [Validators.required, minDateValidator()] : [],
       ],
       active: [false],
-      region: [0, !this.isViewMode ? [Validators.required] : []],
+      region: [null, !this.isViewMode ? [Validators.required] : []],
       medical_specialties: [
         [] as number[],
         !this.isViewMode ? [Validators.required] : [],
@@ -101,6 +100,14 @@ export class CompanyFormComponent implements OnInit {
     this.regionService
       .getRegions()
       .subscribe({ next: (res) => (this.regions = res) });
+  }
+
+  viewSpecialties() {
+    this.matDialog.open(CompanyListSpecialtyComponent, {
+      height: '50vh',
+      minWidth: '300px',
+      data: this.company.medical_specialties,
+    });
   }
 
   setValuesForm(): void {

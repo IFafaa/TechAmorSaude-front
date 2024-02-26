@@ -1,0 +1,23 @@
+<div class="p-3">
+  <div>
+    <h2>
+      {{ error.title }} <span class="material-symbols-outlined"> error </span>
+    </h2>
+  </div>
+  <div>
+    <h3>
+      Status: <strong>{{ error.status }}</strong>
+    </h3>
+  </div>
+  <div>
+    <p>Erro: {{ error.error | json }}</p>
+  </div>
+
+  <div class="flex justify-end pt-6">
+    <default-button
+      value="Fechar"
+      type="cancel"
+      (clickEvent)="close()"
+    ></default-button>
+  </div>
+</div>

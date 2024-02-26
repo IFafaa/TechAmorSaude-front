@@ -20,16 +20,18 @@ import { DefaultBackComponent } from 'src/app/shared/layout/default-back/default
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DefaultSearchInputComponent } from '../../shared/layout/default-search-input/default-search-input.component';
 import { CompanyListSpecialtyComponent } from './components/company-list-specialty/company-list-specialty.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import { AuthGuard } from 'src/app/core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: CompanyComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: ':type/:id',
     component: CompanyActionComponent,
+    canActivate: [AuthGuard],
   },
 ];
 
@@ -58,7 +60,6 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatSnackBarModule,
     DefaultSearchInputComponent,
-
   ],
 })
 export class CompanyModule {}

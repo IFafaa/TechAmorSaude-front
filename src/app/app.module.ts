@@ -13,7 +13,7 @@ import { CustomPaginationIntl } from './core/configs/custom.paginator.intl';
 import { NgxMaskModule } from 'ngx-mask';
 import { DefaultErrorModalComponent } from './shared/layout/default-error-modal/default-error-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,12 +25,17 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     NgxMaskModule.forRoot(),
     NgxSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true,
     },
     {

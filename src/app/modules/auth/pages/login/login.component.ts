@@ -36,7 +36,7 @@ export class LoginComponent {
     this.authService.login(this.form.value as ILogin).subscribe({
       next: (res) => {
         this.tokenService.setToken(res.data.access_token);
-        this.router.navigate([`/companies`]);
+        this.router.navigate([`/company`]);
       },
       error: (err) => {
         this.toastrService.error(err.error.message);

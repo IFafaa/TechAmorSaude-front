@@ -18,8 +18,8 @@ export class RegisterComponent {
     confirmPassword: ['', [Validators.required]],
   });
   sentForm = false;
-  hidePassword = false;
-  hideConfirmPassword = false;
+  hidePassword = true;
+  hideConfirmPassword = true;
 
   constructor(
     private readonly fb: FormBuilder,
@@ -62,8 +62,7 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.log(err);
-
-        this.toastrService.error(err);
+        this.toastrService.error(err.error.message);
       },
     });
   }

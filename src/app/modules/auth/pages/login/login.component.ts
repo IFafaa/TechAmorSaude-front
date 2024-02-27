@@ -19,6 +19,8 @@ export class LoginComponent {
   sentForm = false;
   hidePassword = true;
 
+  textError = '';
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
@@ -32,14 +34,14 @@ export class LoginComponent {
     if (this.form.invalid) {
       return;
     }
-
+    this.textError = ''
     this.authService.login(this.form.value as ILogin).subscribe({
       next: (res) => {
         this.tokenService.setToken(res.data.access_token);
         this.router.navigate([`/company`]);
       },
       error: (err) => {
-        this.toastrService.error(err.error.message);
+        this.textError = err.error.message
       },
     });
   }

@@ -10,6 +10,12 @@
           Bem-vindo de volta! Por favor, faça o login para acessar sua conta.
         </p>
       </div>
+
+      <div class="mx-auto max-w-lg text-center">
+        <p class="mt-4 text-red-500">
+          {{ textError }}
+        </p>
+      </div>
       <form
         action=""
         class="mx-auto mb-0 mt-8 max-w-md space-y-4"
@@ -62,7 +68,7 @@
 
         <div class="pt-5">
           <default-button
-          class="w-full"
+            class="w-full"
             value="Entrar"
             (clickEvent)="signIn()"
           ></default-button>

@@ -1,8 +1,8 @@
 import { ENUM_LIST_STATUS } from './../../../../core/enums/list-status.enum';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { CompanyService } from '../../services/company.service';
 import { ICompany } from '../../models/company.interface';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ENUM_CRUD_TYPE } from 'src/app/core/enums/crud-type.enum';
 
 @Component({
@@ -10,23 +10,38 @@ import { ENUM_CRUD_TYPE } from 'src/app/core/enums/crud-type.enum';
   templateUrl: './company-list.component.html',
   styleUrls: ['./company-list.component.scss'],
 })
-export class CompanyListComponent implements OnInit {
+export class CompanyListComponent {
   companies: ICompany[] = [];
   ENUM_LIST_STATUS = ENUM_LIST_STATUS;
   companiesListStatus: ENUM_LIST_STATUS = ENUM_LIST_STATUS.NOT_FOUND;
   pageIndex = 0;
 
+  filter: string = '';
+
   constructor(
     private readonly companyService: CompanyService,
-    private readonly router: Router
-  ) {}
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.route.queryParams.subscribe((params) => {
+          this.filter = params['filter'];
+          this.getCompanies(params['filter']);
+        });
+      }
+    });
+  }
 
-  ngOnInit(): void {
-    this.getCompanies();
+  adjustParams(filter?: string) {
+    this.router.navigate(['/company'], { queryParams: { filter: filter } });
   }
 
   getCompanies(filter?: string) {
-    this.companyService.getCompanies().subscribe({
+    const _filter = filter
+      ? { fantasy_name: filter, company_name: filter }
+      : undefined;
+    this.companyService.getCompanies(_filter).subscribe({
       next: (res) => {
         this.companiesListStatus = ENUM_LIST_STATUS.IDLE;
         this.companies = res;

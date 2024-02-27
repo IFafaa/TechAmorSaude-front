@@ -44,13 +44,13 @@ export class HeaderComponent {
     const titleDialog = 'Deletar Conta';
     const descDialog = 'Você realmente deseja deletar a sua conta?';
     this.confirmDialogService.confirm(titleDialog, descDialog, () => {
-      // this.authService.deleteUser().subscribe({
-      //   next: () => {
-      //     this.tokenService.removeToken();
-      //     this.router.navigate(['/']);
-      //     this.toastrService.success('Conta deletada com sucesso!');
-      //   },
-      // });
+      this.authService.deleteUser().subscribe({
+        next: () => {
+          this.tokenService.removeToken();
+          this.router.navigate(['/']);
+          this.toastrService.success('Conta deletada com sucesso!');
+        },
+      });
     });
   }
 }

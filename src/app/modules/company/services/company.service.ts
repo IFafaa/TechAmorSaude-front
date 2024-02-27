@@ -11,8 +11,12 @@ import { IRequest } from 'src/app/core/services/interfaces/request.interface';
 export class CompanyService {
   constructor(private readonly http: HttpClient) {}
 
-  getCompanies(): Observable<ICompany[]> {
-    return this.http.get<ICompany[]>(`${environment.api}company`);
+  getCompanies(
+    filter: { [key: string]: string } | undefined
+  ): Observable<ICompany[]> {
+    return this.http.get<ICompany[]>(`${environment.api}company`, {
+      params: filter,
+    });
   }
 
   getCompany(id: number): Observable<ICompany> {

@@ -1,7 +1,8 @@
 <div class="mx-auto">
   <div class="pt-4 px-3">
     <default-search-input
-      (searchEvent)="getCompanies($event)"
+      (searchEvent)="adjustParams($event)"
+      [text]="filter"
       placeholder="Pesquise pelo nome da entidade"
     ></default-search-input>
   </div>

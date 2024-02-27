@@ -25,4 +25,8 @@ export class AuthService {
       login
     );
   }
+
+  deleteUser(): Observable<void> {
+    return this.http.delete<void>(`${environment.api}user/`);
+  }
 }

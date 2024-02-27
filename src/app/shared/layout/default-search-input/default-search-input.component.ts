@@ -1,23 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Subject, debounceTime } from 'rxjs';
+import { Observable, Subject, debounceTime } from 'rxjs';
 
 @Component({
   selector: 'default-search-input',
   templateUrl: './default-search-input.component.html',
   styleUrls: ['./default-search-input.component.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule],
 })
 export class DefaultSearchInputComponent implements OnInit {
-  @Input() placeholder: string = ''
+  @Input() placeholder: string = '';
   @Output() searchEvent = new EventEmitter<string>();
   searchSubject$ = new Subject();
-  text = '';
+  @Input() text = '';
 
   ngOnInit(): void {
-    this.searchSubject$.pipe(debounceTime(1000)).subscribe((value) => {
+    this.searchSubject$.pipe(debounceTime(750)).subscribe((value) => {
       this.searchEvent.emit(value as string);
     });
   }

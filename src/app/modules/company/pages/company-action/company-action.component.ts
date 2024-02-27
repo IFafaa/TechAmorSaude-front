@@ -12,7 +12,7 @@ import { ErrorService } from 'src/app/core/services/error.service';
   templateUrl: './company-action.component.html',
   styleUrls: ['./company-action.component.scss'],
 })
-export class CompanyActionComponent implements OnInit {
+export class CompanyActionComponent{
   ENUM_CRUD_TYPE = ENUM_CRUD_TYPE;
   crudType!: ENUM_CRUD_TYPE;
   id!: number;
@@ -28,8 +28,6 @@ export class CompanyActionComponent implements OnInit {
   ) {
     this.getParams();
   }
-
-  ngOnInit(): void {}
 
   getParams() {
     this.route.params.subscribe((params) => {

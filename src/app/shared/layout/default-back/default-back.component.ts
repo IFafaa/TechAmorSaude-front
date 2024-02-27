@@ -1,5 +1,5 @@
 import { CommonModule, Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -11,9 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [CommonModule, MatButtonModule, MatIconModule],
 })
 export class DefaultBackComponent {
+  @Output() clickCallback = new EventEmitter<void>();
+
   constructor(private readonly location: Location) {}
 
   back() {
+    this.clickCallback.emit();
     this.location.back();
   }
 }

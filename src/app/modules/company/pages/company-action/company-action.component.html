@@ -1,5 +1,5 @@
 <div class="w-full max-w-5xl mx-auto px-3 py-5">
-  <default-back></default-back>
+  <default-back (clickCallback)="resetParams()"></default-back>
   <div class="flex justify-between w-full">
     <h2>
       {{
@@ -28,6 +28,8 @@
       type="primary"
     ></default-button>
   </div>
+  {{ company | json }}
+  {{ crudType }}
   <app-company-form
     *ngIf="
       (company && crudType !== ENUM_CRUD_TYPE.create && crudType) ||

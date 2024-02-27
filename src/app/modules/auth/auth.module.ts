@@ -10,15 +10,18 @@ import { RegisterComponent } from './pages/register/register.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NotFoundComponent } from '../../core/components/not-found/not-found.component';
+import { NotAuthGuard } from 'src/app/core/guards/not-auth.guard';
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [NotAuthGuard],
   },
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [NotAuthGuard],
   },
   { path: '', redirectTo: '/auth/login', pathMatch: 'full' },
 ];
@@ -33,7 +36,7 @@ const routes: Routes = [
     MatInputModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
   ],
 })
 export class AuthModule {}

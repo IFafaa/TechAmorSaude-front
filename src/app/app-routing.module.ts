@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './core/components/not-found/not-found.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { NotAuthGuard } from './core/guards/not-auth.guard';
 
 const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
+      canActivate: [NotAuthGuard]
   },
   {
     path: 'company',

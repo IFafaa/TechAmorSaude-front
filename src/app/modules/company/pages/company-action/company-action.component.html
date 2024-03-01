@@ -28,8 +28,6 @@
       type="primary"
     ></default-button>
   </div>
-  {{ company | json }}
-  {{ crudType }}
   <app-company-form
     *ngIf="
       (company && crudType !== ENUM_CRUD_TYPE.create && crudType) ||

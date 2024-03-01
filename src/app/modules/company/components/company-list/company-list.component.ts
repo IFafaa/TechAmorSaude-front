@@ -1,9 +1,10 @@
 import { ENUM_LIST_STATUS } from './../../../../core/enums/list-status.enum';
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CompanyService } from '../../services/company.service';
 import { ICompany } from '../../models/company.interface';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { ENUM_CRUD_TYPE } from 'src/app/core/enums/crud-type.enum';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-company-list',
@@ -11,11 +12,8 @@ import { ENUM_CRUD_TYPE } from 'src/app/core/enums/crud-type.enum';
   styleUrls: ['./company-list.component.scss'],
 })
 export class CompanyListComponent {
-  companies: ICompany[] = [];
-  ENUM_LIST_STATUS = ENUM_LIST_STATUS;
-  companiesListStatus: ENUM_LIST_STATUS = ENUM_LIST_STATUS.NOT_FOUND;
+  companies$: Observable<ICompany[]> = new Observable();
   pageIndex = 0;
-
   filter: string = '';
 
   constructor(
@@ -27,7 +25,11 @@ export class CompanyListComponent {
       if (event instanceof NavigationEnd) {
         this.route.queryParams.subscribe((params) => {
           this.filter = params['filter'];
-          this.getCompanies(params['filter']);
+          if (
+            this.router.url === '/company' ||
+            this.router.url.includes('company?')
+          )
+            this.getCompanies(this.filter);
         });
       }
     });
@@ -41,17 +43,7 @@ export class CompanyListComponent {
     const _filter = filter
       ? { fantasy_name: filter, company_name: filter }
       : undefined;
-    this.companyService.getCompanies(_filter).subscribe({
-      next: (res) => {
-        this.companiesListStatus = ENUM_LIST_STATUS.IDLE;
-        this.companies = res;
-        if (!this.companies.length)
-          this.companiesListStatus = ENUM_LIST_STATUS.NOT_FOUND;
-      },
-      error: (err) => {
-        this.companiesListStatus = ENUM_LIST_STATUS.ERROR;
-      },
-    });
+    this.companies$ = this.companyService.getCompanies(_filter);
   }
 
   viewCompany(company_id: number) {

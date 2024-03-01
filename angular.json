@@ -67,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "techamorsaude-front:build:production"
+              "buildTarget": "techamorsaude-front:build:production"
             },
             "development": {
-              "browserTarget": "techamorsaude-front:build:development"
+              "buildTarget": "techamorsaude-front:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "techamorsaude-front:build"
+            "buildTarget": "techamorsaude-front:build"
           }
         },
         "test": {
